@@ -1,10 +1,10 @@
 <?php
 
-namespace OpenAdmin\Admin\Reporter;
+namespace OpenAdminCore\Admin\Reporter;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use OpenAdmin\Admin\Extension;
+use OpenAdminCore\Admin\Extension;
 use Throwable;
 
 class Reporter extends Extension

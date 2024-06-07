@@ -1,8 +1,8 @@
 <?php
 
-namespace OpenAdmin\Admin\Reporter\Actions;
+namespace OpenAdminCore\Admin\Reporter\Actions;
 
-use OpenAdmin\Admin\Actions\RowAction;
+use OpenAdminCore\Admin\Actions\RowAction;
 
 class ViewReport extends RowAction
 {

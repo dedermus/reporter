@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Reporter;
+namespace OpenAdminCore\Admin\Reporter;
 
 use Illuminate\Database\Eloquent\Model;
 

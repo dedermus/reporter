@@ -1,4 +1,4 @@
-Exception reporter for Open-Admin
+Exception reporter for Open-Admin-Core
 =================================
 
 This tool stores the exception information into the database and provides a developer-friendly web interface to view the exception information.
@@ -16,7 +16,7 @@ This tool stores the exception information into the database and provides a deve
 ## Installation
 
 ```
-$ composer require open-admin-ext/reporter
+$ composer require dedermus/reporter
 
 $ php artisan vendor:publish --tag=open-admin-reporter
 
@@ -26,7 +26,7 @@ $ php artisan admin:import reporter
 ```
 
 Open `app/Exceptions/Handler.php`,
-1) Add: `use OpenAdmin\Admin\Reporter\Reporter;`
+1) Add: `use OpenAdminCore\Admin\Reporter\Reporter;`
 2) Call `Reporter::report()` inside `register` ... `reportable` method:
 ```php
 <?php

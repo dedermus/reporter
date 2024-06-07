@@ -1,14 +1,14 @@
 <?php
 
-namespace OpenAdmin\Admin\Reporter;
+namespace OpenAdminCore\Admin\Reporter;
 
 use Illuminate\Http\JsonResponse;
-use OpenAdmin\Admin\Controllers\ModelForm;
-use OpenAdmin\Admin\Facades\Admin;
-use OpenAdmin\Admin\Grid;
-use OpenAdmin\Admin\Layout\Content;
-use OpenAdmin\Admin\Reporter\Actions\ViewReport;
-use OpenAdmin\Admin\Reporter\Tracer\Parser;
+use OpenAdminCore\Admin\Controllers\ModelForm;
+use OpenAdminCore\Admin\Facades\Admin;
+use OpenAdminCore\Admin\Grid;
+use OpenAdminCore\Admin\Layout\Content;
+use OpenAdminCore\Admin\Reporter\Actions\ViewReport;
+use OpenAdminCore\Admin\Reporter\Tracer\Parser;
 
 class ExceptionController
 {

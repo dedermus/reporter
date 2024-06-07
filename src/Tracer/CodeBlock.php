@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenAdmin\Admin\Reporter\Tracer;
+namespace OpenAdminCore\Admin\Reporter\Tracer;
 
 class CodeBlock
 {

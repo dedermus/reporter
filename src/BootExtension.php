@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenAdmin\Admin\Reporter;
+namespace OpenAdminCore\Admin\Reporter;
 
 use Illuminate\Routing\Router;
-use OpenAdmin\Admin\Admin;
+use OpenAdminCore\Admin\Admin;
 
 trait BootExtension
 {
@@ -25,7 +25,7 @@ trait BootExtension
     {
         parent::routes(function ($router) {
             /* @var Router $router */
-            $router->resource('exceptions', 'OpenAdmin\Admin\Reporter\ExceptionController');
+            $router->resource('exceptions', 'OpenAdminCore\Admin\Reporter\ExceptionController');
         });
     }
 
