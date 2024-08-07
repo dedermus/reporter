@@ -20,7 +20,7 @@ $ composer require dedermus/reporter
 
 $ php artisan vendor:publish --tag=open-admin-reporter
 
-$ php artisan migrate --path=vendor/open-admin-ext/reporter/database/migrations
+$ php artisan migrate --path=vendor/dedermus/reporter/database/migrations
 
 $ php artisan admin:import reporter
 ```
