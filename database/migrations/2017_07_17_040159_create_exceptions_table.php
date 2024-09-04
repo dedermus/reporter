@@ -42,20 +42,21 @@ class CreateExceptionsTable extends Migration
         $table = config('admin.extensions.reporter.table', 'laravel_exceptions');
 
         Schema::connection($connection)->create($table, function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('type', 255);
-            $table->string('code');
-            $table->string('message', 255);
-            $table->string('file', 255);
-            $table->integer('line');
-            $table->text('trace');
-            $table->string('method');
-            $table->string('path', 255);
-            $table->text('query');
-            $table->text('body');
-            $table->text('cookies');
-            $table->text('headers');
-            $table->string('ip');
+            $table->comment('журнал исключений');
+            $table->id()->comment('инкремент ID');
+            $table->string('type', 255)->comment('тип');
+            $table->string('code')->comment('код');
+            $table->string('message', 255)->comment('сообщение исключения/конфликта');
+            $table->string('file', 255)->comment('файл, где произошло исключение/конфликт');
+            $table->integer('line')->comment('строка исключения в файле');
+            $table->text('trace')->comment('трассировка');
+            $table->string('method')->comment('метод');
+            $table->string('path', 255)->comment('путь');
+            $table->text('query')->comment('запрос');
+            $table->text('body')->comment('тело');
+            $table->text('cookies')->comment('куки');
+            $table->text('headers')->comment('заголовки');
+            $table->ipAddress('ip')->comment('IP адрес');
             $table->timestamps();
         });
     }

@@ -12,9 +12,9 @@
         }
     ],
     "require": {
-        "php": ">=7.0.0",
+        "php": "^8.2",
         "laravel/framework": ">=7.0",
-        "dedermus/open-admin-core": "~1.0",
+        "dedermus/open-admin-core": "^v2.0",
         "ext-json": "*"
     },
     "require-dev": {
