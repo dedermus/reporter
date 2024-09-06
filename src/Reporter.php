@@ -49,9 +49,9 @@ class Reporter extends Extension
 
             // Request info.
             'method'    => $this->request->getMethod(),
-            'ip'        => $this->request->getClientIps(),
+            'ip'        => is_array($this->request->getClientIps()) ? $this->request->getClientIps()[0] : $this->request->getClientIps(),
             'path'      => $this->request->path(),
-            'query'     => Arr::except($this->request->all(), ['_pjax', '_token', '_method', '_previous_']),
+            'query'     => stripcslashes(json_encode(Arr::except($this->request->all(), ['_pjax', '_token', '_method', '_previous_']), true)),
             'body'      => $this->request->getContent(),
             'cookies'   => $this->request->cookies->all(),
             'headers'   => Arr::except($this->request->headers->all(), 'cookie'),
@@ -68,6 +68,7 @@ class Reporter extends Extension
         $data = $this->stringify($data);
 
         try {
+
             $this->store($data);
         } catch (Throwable $e) {
 //            $result = $this->reportException($e);
@@ -104,8 +105,8 @@ class Reporter extends Extension
 
             return true;
         } catch (Throwable $e) {
+
             return false;
-            //dd($e);
         }
     }
 }

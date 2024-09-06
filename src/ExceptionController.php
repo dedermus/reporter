@@ -22,28 +22,31 @@ class ExceptionController
     public function index(): Content
     {
         return Admin::content(function (Content $content) {
-            $content->header('Exception');
-            $content->description('Exception list..');
-
+            $content->header(trans('reporter.exception'));
+            $content->description(trans('reporter.exception_list'));
             $content->body($this->grid());
         });
     }
 
+    /**
+     * Формирование списка
+     * @return Grid
+     */
     public function grid(): Grid
     {
         return Admin::grid(ExceptionModel::class, function (Grid $grid) {
             $grid->model()->orderBy('id', 'desc');
 
-            $grid->id('ID')->sortable();
+            $grid->column('id','ID')->sortable();
 
-            $grid->type()->display(function ($type) {
+            $grid->column('type', trans('reporter.type'))->sortable()->display(function ($type) {
                 $path = explode('\\', $type);
 
                 return array_pop($path);
             });
 
-            $grid->code();
-            $grid->message()->style('width:400px')->display(function ($message) {
+            $grid->column('code', trans('reporter.code'))->sortable();
+            $grid->column('message', trans('reporter.message'))->sortable()->style('width:400px')->display(function ($message) {
                 if (empty($message)) {
                     return '';
                 }
@@ -51,7 +54,7 @@ class ExceptionController
                 return "<code>$message</code>";
             });
 
-            $grid->request()->display(function () {
+            $grid->column('method', trans('reporter.method'))->sortable()->display(function () {
                 $color = ExceptionModel::$methodColor[$this->method];
 
                 return sprintf(
@@ -61,31 +64,26 @@ class ExceptionController
                     $this->path
                 );
             });
-
-            $grid->input()->display(function ($input) {
-                $input = json_decode($input, true);
-
-                if (empty($input)) {
-                    return '';
-                }
-
-                return '<pre>'.json_encode($input, JSON_PRETTY_PRINT).'</pre>';
+            $grid->column('created_at',  trans('reporter.created_at'))->sortable()->display(function ($created_at) {
+                return date('Y-m-d H:i:s', strtotime($created_at));
             });
-
-            $grid->created_at();
 
             $grid->filter(function ($filter) {
                 $filter->disableIdFilter();
-                $filter->like('type');
-                $filter->like('message');
-                $filter->between('created_at')->datetime();
+                $filter->like('type', trans('reporter.type'));
+                $filter->like('message', trans('reporter.message'));
+                $filter->between('created_at',trans('reporter.created_at'))->datetime();
             });
 
             $grid->disableCreation();
 
             $grid->actions(function (Grid\Displayers\Actions\Actions $actions) {
                 $actions->disableEdit();
-                //$actions->pre(new ViewReport()); // if you want an extra button
+                $actions->pre(new ViewReport()); // if you want an extra button
+            });
+            // убираем опцию редактирования при выборке элементов
+            $grid->batchActions(function (Grid\Tools\BatchActions $batch) {
+                $batch->disableEdit();
             });
         });
     }
@@ -93,7 +91,7 @@ class ExceptionController
     public function show($id)
     {
         return Admin::content(function (Content $content) use ($id) {
-            $content->header('Exception');
+            $content->header(trans('reporter.exception'));
             $content->description('Exception detail.');
 
             Admin::script('Prism.highlightAll();');
@@ -112,6 +110,12 @@ class ExceptionController
         });
     }
 
+    /**
+     * Диалоговое окно на удаление выбранных элементов из спсика
+     * @param $id - массив выбранных элементов из списка
+     *
+     * @return JsonResponse
+     */
     public function destroy($id): JsonResponse
     {
         $ids = explode(',', $id);
@@ -119,12 +123,12 @@ class ExceptionController
         if (ExceptionModel::query()->whereIn('id', $ids)->delete()) {
             return response()->json([
                 'status'  => true,
-                'message' => trans('admin.delete_succeeded'),
+                'message' => trans('reporter.delete_succeeded'),
             ]);
         } else {
             return response()->json([
                 'status'  => false,
-                'message' => trans('admin.delete_failed'),
+                'message' => trans('reporter.delete_failed'),
             ]);
         }
     }

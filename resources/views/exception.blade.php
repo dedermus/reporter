@@ -29,11 +29,11 @@
 
     <div class="card-header">
         <h3 class="card-title">
-            <h3 class="card-title"><i class="icon-info"></i>Request details</h3>
+            <h3 class="card-title"><i class="icon-info"></i>{{ trans('reporter.request_details') }}</h3>
         </h3>
 
         <div class="card-tools">
-            <a href="{{ route('exceptions.index') }}" class="btn btn-sm btn-primary"><i class="icon-list"></i>&nbsp;{{ trans('admin.list') }}</a>
+            <a href="{{ route('exceptions.index') }}" class="btn btn-sm btn-primary"><i class="icon-list"></i>&nbsp;{{ trans('reporter.list') }}</a>
         </div>
     </div>
 
@@ -125,7 +125,7 @@
 
 <div class="card card-primary mt-4">
     <div class="card-header">
-        <h3 class="card-title"><i class="icon-file-code"></i>Exception Trace</h3>
+        <h3 class="card-title"><i class="icon-file-code"></i>{{ trans('reporter.exception_trace') }}</h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
@@ -135,7 +135,6 @@
                 <table class="table allow-wrap args" style="margin: 0px;">
                     <tbody>
                     <tr>
-
                         <td style="width: 40px;">&nbsp;</td>
                         <td class="name"><strong>Exception</strong></td>
                         <td class="value"><code>{{ $exception->type }}</code></td>
