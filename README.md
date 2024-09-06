@@ -25,54 +25,35 @@ $ php artisan migrate --path=vendor/dedermus/reporter/database/migrations
 $ php artisan admin:import reporter
 ```
 
-Open `app/Exceptions/Handler.php`,
+Open `bootstrap/app.php`,
 1) Add: `use OpenAdminCore\Admin\Reporter\Reporter;`
-2) Call `Reporter::report()` inside `register` ... `reportable` method:
+2) Call `$exceptions->reportable(function (Throwable $e) {
+   Reporter::report($e);
+   });` inside `Application` ... `withExceptions` method:
 ```php
 <?php
 
-namespace App\Exceptions;
+use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
+use OpenAdminCore\Admin\Reporter\Reporter;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use OpenAdmin\Admin\Reporter\Reporter;
-use Throwable;
-
-
-class Handler extends ExceptionHandler
-{
-    /**
-     * A list of the exception types that are not reported.
-     *
-     * @var array
-     */
-    protected $dontReport = [
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__.'/../routes/web.php',
+        commands: __DIR__.'/../routes/console.php',
+        health: '/up',
+    )
+    ->withMiddleware(function (Middleware $middleware) {
         //
-    ];
+    })
+ ->withExceptions(function (Exceptions $exceptions) {
 
-    /**
-     * A list of the inputs that are never flashed for validation exceptions.
-     *
-     * @var array
-     */
-    protected $dontFlash = [
-        'current_password',
-        'password',
-        'password_confirmation',
-    ];
-
-    /**
-     * Register the exception handling callbacks for the application.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->reportable(function (Throwable $e) {
-            // Add This line
-            Reporter::report($e);
-        });
-    }
-}
+    // Add This line
+    $exceptions->reportable(function (Throwable $e) {
+        Reporter::report($e);
+    });
+})->create();
 
 ```
 

@@ -21,7 +21,8 @@ class ReporterServiceProvider extends ServiceProvider
 
             $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-            $this->publishes([__DIR__.'/../resources/lang' => resource_path('lang')], 'open-admin-lang');
+            $this->publishes([__DIR__.'/../resources/lang' => resource_path('lang')],
+                'open-admin-reporter');
         }
 
         Reporter::boot();
